@@ -12,9 +12,10 @@ export default class HomeScreen extends React.Component {
     handleButtonPress = () => {
         this.props.navigation.dispatch(
             StackActions.push({
-                actions: [NavigationActions.navigate({ routeName: 'QuizInfo' })],
+                routeName: 'QuizInfo'
             })
         )
+        console.log("button")
     }
 
     render() {

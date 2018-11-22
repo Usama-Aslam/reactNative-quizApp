@@ -8,7 +8,7 @@ import { NavigationActions, StackActions } from 'react-navigation'
 export default class CameraExample extends React.Component {
     state = {
         hasCameraPermission: null,
-        type: Camera.Constants.Type.back
+        type: Camera.Constants.Type.front
     };
 
     async componentDidMount() {
@@ -17,13 +17,13 @@ export default class CameraExample extends React.Component {
     }
 
     handleFacesDetected = (obj) => {
-        obj.faces[0] ?
+        if (obj.faces[0])
             this.props.navigation.dispatch(
                 StackActions.reset({
                     index: 0,
                     actions: [NavigationActions.navigate({ routeName: 'Home' })],
                 })
-            ) : <Text>No Face Found</Text>
+            )
     }
 
     render() {
@@ -52,9 +52,6 @@ export default class CameraExample extends React.Component {
                                 backgroundColor: 'transparent',
                                 flexDirection: 'row',
                             }}>
-                            <Text
-                                style={{ fontSize: 18, marginBottom: 10, color: 'white' }}
-                            >No Face Found</Text>
                             <TouchableOpacity
                                 style={{
                                     flex: 0.1,
@@ -64,13 +61,13 @@ export default class CameraExample extends React.Component {
                                 onPress={() => {
                                     this.setState({
                                         type: this.state.type === Camera.Constants.Type.front
-                                            ? Camera.Constants.Type.front
-                                            : Camera.Constants.Type.back,
+                                            ? Camera.Constants.Type.back
+                                            : Camera.Constants.Type.front,
                                     });
                                 }}>
                                 <Text
                                     style={{ fontSize: 18, margin: 0, color: 'white', width: 30 }}>
-                                    Flip
+                                    Flip Mode
                                 </Text>
                             </TouchableOpacity>
                         </View>
