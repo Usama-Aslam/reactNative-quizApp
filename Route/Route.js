@@ -5,6 +5,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 import CameraFace from '../Components/CameraFace/CameraFace'
 import HomeScreen from '../Screens/HomeScreen/HomeScreen.js'
 import QuizInfo from '../Screens/Quiz/QuizInfo'
+import QuizConfirm from '../Screens/Quiz/QuizConfirm'
 import Quiz from '../Screens/Quiz/Quiz'
 
 const AppNavigator = createStackNavigator({
@@ -17,11 +18,14 @@ const AppNavigator = createStackNavigator({
     QuizInfo: {
         screen: QuizInfo
     },
+    QuizConfirm: {
+        screen: QuizConfirm
+    },
     Quiz: {
         screen: Quiz
     }
 }, {
-        initialRouteName: 'Cam'
+        initialRouteName: 'Home'
     }
 )
 
