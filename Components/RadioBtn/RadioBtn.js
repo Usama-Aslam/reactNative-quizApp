@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, ListItem, Text, Radio, Right, Left } from 'native-base';
+
 export default class RadioBtn extends Component {
     render() {
         return (
             <Container>
-                <Header />
                 <Content>
                     <ListItem>
                         <Left>
@@ -12,14 +12,6 @@ export default class RadioBtn extends Component {
                         </Left>
                         <Right>
                             <Radio selected={false} />
-                        </Right>
-                    </ListItem>
-                    <ListItem>
-                        <Left>
-                            <Text>Discussion with Client</Text>
-                        </Left>
-                        <Right>
-                            <Radio selected={true} />
                         </Right>
                     </ListItem>
                 </Content>
