@@ -1,7 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 
 import { NavigationActions, StackActions } from 'react-navigation'
+
+import RadioBtn from '../../Components/RadioBtn/RadioBtn'
+
 
 class Quiz extends React.Component {
     constructor() {
@@ -13,13 +16,16 @@ class Quiz extends React.Component {
 
 
     render() {
-        const { question } = this.props
-        console.log("QuizConfirm Props Question==> ", this.props)
-
+        const { question } = this.props.navigation.state.params
+        // console.log("QuizConfirm Props Question==> ", question[0])
+        console.log('heeloiiii')
         return (
             <View>
                 <View>
-
+                    <Text>hi</Text>
+                    <View>
+                        <RadioBtn />
+                    </View>
                 </View>
                 <Button
 
@@ -27,9 +33,9 @@ class Quiz extends React.Component {
                     color="#000000"
                     accessibilityLabel="Click To Start The Quiz"
                 />
-            </View>
+            </View >
         );
     }
 }
 
-export default Quiz
+export default Quiz 
