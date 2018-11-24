@@ -27,7 +27,7 @@ class QuizConfirm extends React.Component {
 
     handleButtonPress = () => {
         const { question } = this.state
-        console.log("handel", question)
+        // console.log("handel", question)
 
         this.props.navigation.dispatch(
             StackActions.replace({

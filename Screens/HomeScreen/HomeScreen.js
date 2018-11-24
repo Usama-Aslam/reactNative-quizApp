@@ -1,12 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+
+import { StyleSheet, View, TouchableOpacity, Image, Button as ReactButton } from 'react-native';
 
 import { NavigationActions, StackActions } from 'react-navigation'
+
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 
 export default class HomeScreen extends React.Component {
     constructor() {
         super()
 
+    }
+
+    async componentWillMount() {
+        await Expo.Font.loadAsync({
+            'Roboto': require('native-base/Fonts/Roboto.ttf'),
+            'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+        });
     }
 
     handleButtonPress = () => {
@@ -19,21 +29,32 @@ export default class HomeScreen extends React.Component {
     }
 
     render() {
-        return (
-            <View className={styles.container}>
-                <View className={styles.heading}>
-                    <Text>Welcome Mouzzam</Text>
-                </View>
-                <View className={styles.ButtonDiv}>
-                    <Button
-                        onPress={this.handleButtonPress}
-                        title="Get Started"
-                        color="#000000"
-                        accessibilityLabel="Click To Start The Quiz"
-                    />
-                </View>
-            </View>
-        );
+        return <Container style={{ flex: 1 }}>
+            <Header>
+                <Left>
+                    <Button transparent>
+                        <Icon name='menu' />
+                    </Button>
+                </Left>
+                <Body>
+                    <Title>BlockIQ</Title>
+                </Body>
+                <Right />
+            </Header>
+            <Content>
+                <Text>This is Content</Text>
+                <ReactButton className='playBtn'>
+                    <Text>Success</Text>
+                </ReactButton>
+            </Content>
+            <Footer>
+                <FooterTab>
+                    <Button block >
+                        <Text>Footer</Text>
+                    </Button>
+                </FooterTab>
+            </Footer>
+        </Container>
     }
 }
 
@@ -48,6 +69,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    Button: {
+    playBtn: {
+        flex: 1,
+        width: 120,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });
+
+{/* <View className={styles.ButtonDiv}>
+    <Button
+        onPress={this.handleButtonPress}
+        title="Get Started"
+        color="#000000"
+        accessibilityLabel="Click To Start The Quiz"
+    />
+</View> */}

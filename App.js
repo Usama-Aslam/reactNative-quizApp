@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 
 import CameraFace from './Components/CameraFace/CameraFace'
 
-import AppNavigator from './Route/Route'
+import AppNavigator from './Navigation/AppNavigation';
 
 export default class App extends React.Component {
   constructor() {

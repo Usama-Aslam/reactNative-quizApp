@@ -13,28 +13,41 @@ class Quiz extends React.Component {
         super(props)
         const { question } = this.props.navigation.state.params
         this.state = {
-            obj: {
-                Question: question[0].question,
-                opt1: question[0].incorrect_answers[0],
-                opt2: question[0].incorrect_answers[1],
-                opt3: question[0].incorrect_answers[2],
-                opt4: question[0].correct_answer,
-            },
+            Question: question[0].question,
+            opt1: question[0].incorrect_answers[0],
+            opt2: question[0].incorrect_answers[1],
+            opt3: question[0].incorrect_answers[2],
+            opt4: question[0].correct_answer,
+
+            answer: null,
             load: 0,
-            correct: null,
-            checked: false
+            correct: 0,
+            checked: false,
+            score: 0
+
         }
     }
 
+    shuffle(array) {
 
-    next = () => {
-        const { Question, opt1, opt2, opt3, opt4 } = this.setState.obj
-        const { question } = this.props.navigation.state.params
-        // if (question.correct_answer.equals())
-    }
+        let currentIndex = array.length;
+        let temporaryValue, randomIndex;
 
-    updateStatus = (e) => {
-        let { checked } = this.state;
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+
+    };
+
+    updateStatus = (e, value) => {
+        let { checked, answer } = this.state;
+        answer = value;
 
         switch (e) {
             case 1: {
@@ -56,89 +69,129 @@ class Quiz extends React.Component {
             default: {
                 console.log("please select one")
             }
-
         }
 
         this.setState({
-            checked
+            checked,
+            answer
         })
 
     }
 
+    handleNextButton = () => {
+        const { question } = this.props.navigation.state.params;
+        let { answer, correct, load, checked, score } = this.state
+
+        if (question[load].correct_answer.match(answer)) {
+            console.log("load**", load)
+
+            this.setState({ correct: ++correct })
+        }
+        if (question.length - 1 == load) {
+            console.log('value equal')
+            console.log("correct", this.state.correct)
+
+            score = correct * (100 / question.length)
+            console.log("score", score)
+
+            this.setState({
+                score
+            })
+        }
+        else {
+            load++
+            checked = null;
+
+            let arr = [...question[load].incorrect_answers, ...question[load].correct_answers];
+            let num = this.shuffle(arr);
+
+            console.log('shuffles', num)
+
+            this.setState({
+                Question: question[load].question,
+                opt1: num[0],
+                opt2: num[1],
+                opt3: num[2],
+                opt4: num[3],
+                checked,
+                load
+            })
+        }
+    }
     render() {
         const { question } = this.props.navigation.state.params;
-        let { Question, opt1, opt2, opt3, opt4 } = this.state.obj
-        console.log("opt statuss", this.state.checked)
+        let { Question, opt1, opt2, opt3, opt4 } = this.state;
+
         return (
             <View style={{ flex: 1 }}>
                 <Text>{Question}</Text>
 
                 <Container>
                     <Content>
-                        <ListItem>
+                        <ListItem
+                            onPress={() => {
+                                this.updateStatus(1, opt1)
+                            }}>
                             <Left>
                                 <Text>{opt1}</Text>
                             </Left>
                             <Right>
                                 <Radio
                                     selected={this.state.checked == 1}
-                                    onPress={() => {
-                                        this.updateStatus(1)
-                                    }}
                                 />
                             </Right>
                         </ListItem>
 
-                        <ListItem>
+                        <ListItem
+                            onPress={() => {
+                                this.updateStatus(2, opt2)
+                            }}>
                             <Left>
                                 <Text>{opt2}</Text>
                             </Left>
                             <Right>
                                 <Radio
                                     selected={this.state.checked == 2}
-                                    onPress={() => {
-                                        this.updateStatus(2)
-                                    }}
                                 />
                             </Right>
                         </ListItem>
 
-                        <ListItem>
+                        <ListItem
+                            onPress={() => {
+                                this.updateStatus(3, opt3)
+                            }}>
                             <Left>
                                 <Text>{opt3}</Text>
                             </Left>
                             <Right>
                                 <Radio
                                     selected={this.state.checked == 3}
-                                    onPress={() => {
-                                        this.updateStatus(3)
-                                    }}
                                 />
                             </Right>
                         </ListItem>
 
-                        <ListItem>
+                        <ListItem
+                            onPress={() => {
+                                this.updateStatus(4, opt4)
+                            }}>
                             <Left>
                                 <Text>{opt4}</Text>
                             </Left>
                             <Right>
                                 <Radio
                                     selected={this.state.checked == 4}
-                                    onPress={() => {
-                                        this.updateStatus(4)
-                                    }}
                                 />
                             </Right>
                         </ListItem>
                     </Content>
                 </Container>
 
-                {/* <Button
-
-                    title="Start"
+                <Button
+                    onPress={this.handleNextButton}
+                    title="Next"
                     color="#000000"
-                    accessibilityLabel="Click To Start The Quiz"
-                /> */}
+                    accessibilityLabel="Click for next question"
+                />
             </View >
         );
     }
