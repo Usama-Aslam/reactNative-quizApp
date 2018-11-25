@@ -22,6 +22,8 @@ export default class QuizResult extends Component {
 
 
     render() {
+        const { score } = this.props.navigation.navigation.state.params;
+
         if (this.state.loading) {
             return <Expo.AppLoading />;
         }

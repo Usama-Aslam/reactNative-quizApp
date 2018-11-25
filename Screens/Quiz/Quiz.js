@@ -81,7 +81,7 @@ class Quiz extends React.Component {
     }
 
     handleNextButton = () => {
-        const { question } = this.props.navigation.state.params;
+        const { question, categoryName } = this.props.navigation.state.params;
         let { answer, correct, load, checked, score } = this.state
 
         if (question[load].correct_answer.match(answer)) {
@@ -107,7 +107,8 @@ class Quiz extends React.Component {
                         NavigationActions.navigate({ routeName: 'QuizResult' })
                     ],
                     params: {
-                        score
+                        score,
+                        categoryName
                     }
                 })
             )

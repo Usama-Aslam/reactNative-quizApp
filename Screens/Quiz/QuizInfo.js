@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Picker, PickerItem } from 'react-native';
+import { StyleSheet, Text, View, AppRegistry } from 'react-native';
+
+import { Container, Content, Form, Item, Picker, Button } from 'native-base';
 
 import { NavigationActions, StackActions } from 'react-navigation'
 
@@ -38,45 +40,82 @@ class QuizInfo extends React.Component {
         const { category, level } = this.state
 
         return (
-            <View>
+            <Container >
+                <Content padder>
+                    <Text style={styles.title}>We have Tons of IQ boosters for you. Select a desire Package for Yourself.</Text>
+                    <Form>
+                        <View style={styles.picker}>
+                            <Text style={styles.heading}>Select Category</Text>
 
-                <View>
-                    <Text>Select Catergory</Text>
-                    <Picker
-                        selectedValue={this.state.currentCategoryIndex}
-                        style={{ height: 50, width: 220 }}
-                        onValueChange={(itemValue, itemIndex) => this.setState({ currentCategoryIndex: itemValue })}>
+                            <Item picker>
+                                <Picker
+                                    mode="dropdown"
+                                    style={{ width: undefined }}
+                                    placeholder="Select Category"
+                                    placeholderStyle={{ color: "#bfc6ea" }}
+                                    placeholderIconColor="#007aff"
+                                    selectedValue={this.state.currentCategoryIndex}
+                                    onValueChange={(itemValue, itemIndex) => this.setState({ currentCategoryIndex: itemValue })}
+                                >
+                                    {category.map((item, index) => {
+                                        return <Picker.Item key={item} label={item} value={index} />
+                                    })}
+                                </Picker>
+                            </Item>
+                        </View>
 
-                        {category.map((item, index) => {
-                            return <Picker.Item key={item} label={item} value={index} />
-                        })}
-                    </Picker>
-                </View>
+                        <View style={styles.picker}>
+                            <Text style={styles.heading}>Select Difficulty Level</Text>
+                            <Item picker>
+                                <Picker
+                                    mode="dropdown"
+                                    style={{ width: undefined }}
+                                    placeholder="Select Level"
+                                    placeholderStyle={{ color: "#bfc6ea" }}
+                                    placeholderIconColor="#007aff"
+                                    selectedValue={this.state.currentLevelIndex}
+                                    onValueChange={(itemValue, itemIndex) => this.setState({ currentLevelIndex: itemValue })}
+                                >
+                                    {level.map((item, index) => {
+                                        return <Picker.Item key={item} label={item} value={index} />
+                                    })}
+                                </Picker>
+                            </Item>
+                        </View>
+                    </Form>
 
-                <View>
-                    <Text>Select Level</Text>
-                    <Picker
-                        selectedValue={this.state.currentLevelIndex}
-                        style={{ height: 50, width: 130 }}
-                        onValueChange={(itemValue, itemIndex) => this.setState({ currentLevelIndex: itemValue })}>
-                        {level.map((item, index) => {
-                            return <Picker.Item key={item} label={item} value={index} />
-                        })}
-                    </Picker>
-                </View>
-
-                <View>
-                    <Button
-                        onPress={this.handleButtonPress}
-                        title="Continue"
-                        color="#000000"
-                        accessibilityLabel="Click to continue to Quiz Screen"
-                    />
-                </View>
-
-            </View>
+                    <View>
+                        <Button block info
+                            style={styles.btn}
+                            onPress={this.handleButtonPress}
+                        >
+                            <Text style={{ color: 'white', fontSize: 20 }}>Contine</Text>
+                        </Button>
+                    </View>
+                </Content>
+            </Container>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    title: {
+        textTransform: 'capitalize',
+        fontSize: 20,
+        paddingBottom: 10
+    },
+    heading: {
+        fontSize: 20
+    },
+    picker: {
+        paddingTop: 30
+    },
+    btn: {
+        marginTop: 100,
+        backgroundColor: '#2196f3'
+    }
+});
+
+AppRegistry.registerComponent('AwesomeProject', () => QuizInfo);
 
 export default QuizInfo

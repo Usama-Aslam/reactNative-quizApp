@@ -4,7 +4,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import CameraFace from '../Components/CameraFace/CameraFace'
 import HomeScreen from '../Screens/HomeScreen/HomeScreen'
-import QuizInfoScreen from '../Screens/Quiz/QuizInfo.1'
+import QuizInfoScreen from '../Screens/Quiz/QuizInfo'
 import QuizConfirmScreen from '../Screens/Quiz/QuizConfirm'
 import QuizScreen from '../Screens/Quiz/Quiz'
 import QuizResultScreen from '../Screens/Quiz/QuizResult'
@@ -25,7 +25,15 @@ const AppNavigator = createStackNavigator({
         }),
     },
     QuizInfo: {
-        screen: QuizInfoScreen
+        screen: QuizInfoScreen,
+        navigationOptions: () => ({
+            title: 'Select Quiz',
+            headerStyle: {
+                backgroundColor: '#2196f3',
+            },
+            headerTintColor: '#fff',
+            headerBackTitle: null
+        }),
     },
     QuizConfirm: {
         screen: QuizConfirmScreen
