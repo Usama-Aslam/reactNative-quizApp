@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Button, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Button as ReactButton, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 
-import { Container, Header, Content, ListItem, Text, Radio, Right, Left } from 'native-base';
+import { Container, Header, Content, ListItem, Text, Radio, Right, Left, Button } from 'native-base';
 
 import { NavigationActions, StackActions } from 'react-navigation'
 
@@ -23,6 +23,7 @@ class Quiz extends React.Component {
             load: 0,
             correct: 0,
             checked: false,
+            btnState: true,
             score: 0
 
         }
@@ -46,9 +47,9 @@ class Quiz extends React.Component {
     };
 
     updateStatus = (e, value) => {
-        let { checked, answer } = this.state;
+        let { checked, answer, btnState } = this.state;
         answer = value;
-
+        btnState = false
         switch (e) {
             case 1: {
                 checked = 1
@@ -73,6 +74,7 @@ class Quiz extends React.Component {
 
         this.setState({
             checked,
+            btnState,
             answer
         })
 
@@ -97,12 +99,21 @@ class Quiz extends React.Component {
             this.setState({
                 score
             })
+            this.props.navigation.dispatch(
+                StackActions.reset({
+                    index: 1,
+                    actions: [
+                        NavigationActions.navigate({ routeName: 'QuizInfo' }),
+                        NavigationActions.navigate({ routeName: 'QuizResult' })
+                    ]
+                })
+            )
         }
         else {
             load++
-            checked = null;
+            checked = false;
 
-            let arr = [...question[load].incorrect_answers, ...question[load].correct_answers];
+            let arr = [...question[load].incorrect_answers, question[load].correct_answer];
             let num = this.shuffle(arr);
 
             console.log('shuffles', num)
@@ -127,7 +138,7 @@ class Quiz extends React.Component {
                 <Text>{Question}</Text>
 
                 <Container>
-                    <Content>
+                    <Content padder>
                         <ListItem
                             onPress={() => {
                                 this.updateStatus(1, opt1)
@@ -183,10 +194,14 @@ class Quiz extends React.Component {
                                 />
                             </Right>
                         </ListItem>
+                        <Button
+                            disabled={this.state.btnState}>
+                            <Text>Next</Text>
+                        </Button>
                     </Content>
                 </Container>
 
-                <Button
+                <ReactButton
                     onPress={this.handleNextButton}
                     title="Next"
                     color="#000000"

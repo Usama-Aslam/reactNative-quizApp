@@ -16,7 +16,7 @@ class QuizInfo extends React.Component {
     handleButtonPress = () => {
         const { currentCategoryIndex, currentLevelIndex, level } = this.state
 
-        let category = currentCategoryIndex ? 9 + currentCategoryIndex : 9 + Math.floor(Math.random() * 23)
+        let category = currentCategoryIndex ? 8 + currentCategoryIndex : 8 + Math.floor(Math.random() * 22)
         let difficulty = currentLevelIndex ? level[currentLevelIndex].toLowerCase() : level[1 + Math.floor(Math.random() * 3)].toLowerCase()
 
         this.props.navigation.dispatch(

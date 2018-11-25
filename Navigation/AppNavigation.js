@@ -4,28 +4,41 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import CameraFace from '../Components/CameraFace/CameraFace'
 import HomeScreen from '../Screens/HomeScreen/HomeScreen'
-import QuizInfo from '../Screens/Quiz/QuizInfo'
-import QuizConfirm from '../Screens/Quiz/QuizConfirm'
-import Quiz from '../Screens/Quiz/Quiz'
+import QuizInfoScreen from '../Screens/Quiz/QuizInfo'
+import QuizConfirmScreen from '../Screens/Quiz/QuizConfirm'
+import QuizScreen from '../Screens/Quiz/Quiz'
+import QuizResultScreen from '../Screens/Quiz/QuizResultScreen'
 
 const AppNavigator = createStackNavigator({
     Cam: {
         screen: CameraFace
     },
     Home: {
-        screen: HomeScreen
+        screen: HomeScreen,
+        navigationOptions: () => ({
+            title: 'BlockIQ',
+            headerStyle: {
+                backgroundColor: '#2196f3',
+            },
+            headerTintColor: '#fff',
+            headerBackTitle: null
+        }),
     },
     QuizInfo: {
-        screen: QuizInfo
+        screen: QuizInfoScreen
     },
     QuizConfirm: {
-        screen: QuizConfirm
+        screen: QuizConfirmScreen
     },
     Quiz: {
-        screen: Quiz
+        screen: QuizScreen
+    },
+    QuizResult: {
+        screen: QuizResultScreen
     }
 }, {
-        headerMode: 'none',
+        headerMode: 'float',
+        headerLayoutPreset: 'center',
         initialRouteName: 'Home'
     }
 )

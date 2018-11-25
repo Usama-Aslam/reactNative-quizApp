@@ -15,14 +15,16 @@ class QuizConfirm extends React.Component {
         this.getData()
     }
 
-    getData = () => {
+    getData = async () => {
         const { category, difficulty } = this.props.navigation.state.params.API_props
-       
-        fetch(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`)
+
+        await fetch(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`)
             .then((response) => response.json())
-            .then((res) => this.setState({
-                question: res.results
-            }))
+            .then((res) => {
+                this.setState({
+                    question: res.results
+                })
+            })
     }
 
     handleButtonPress = () => {
