@@ -55,7 +55,7 @@ const AppNavigator = createStackNavigator({
 }, {
         headerMode: 'float',
         headerLayoutPreset: 'left',
-        initialRouteName: 'Home'
+        initialRouteName: 'Cam'
     }
 )
 
