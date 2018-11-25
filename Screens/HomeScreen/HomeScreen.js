@@ -39,7 +39,8 @@ export default class HomeScreen extends Component {
                     <Text style={{ fontSize: 60, textAlign: 'center' }}>
                         BlockIQ
                     </Text>
-                    <Text>Test Your Memory with a whole new level. We have a bunch of new Quizes and IQ test.</Text>
+                    <Text>Test Your Memory with a whole new level. We have a bunch of new Quizes and IQ test.
+                    </Text>
                     <Button
                         block info
                         onPress={this.handleButtonPress}

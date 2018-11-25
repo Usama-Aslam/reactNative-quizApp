@@ -42,7 +42,7 @@ class QuizInfo extends React.Component {
         return (
             <Container >
                 <Content padder>
-                    <Text style={styles.title}>We have Tons of IQ boosters for you. Select a desire Package for Yourself.</Text>
+                    <Text style={styles.title}>We Have Tons Of IQ Boosters For You. Select Any Desire Dose For Yourself.</Text>
                     <Form>
                         <View style={styles.picker}>
                             <Text style={styles.heading}>Select Category</Text>

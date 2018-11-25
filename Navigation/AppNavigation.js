@@ -36,7 +36,15 @@ const AppNavigator = createStackNavigator({
         }),
     },
     QuizConfirm: {
-        screen: QuizConfirmScreen
+        screen: QuizConfirmScreen,
+        navigationOptions: () => ({
+            title: 'Confirm',
+            headerStyle: {
+                backgroundColor: '#2196f3',
+            },
+            headerTintColor: '#fff',
+            headerBackTitle: null
+        }),
     },
     Quiz: {
         screen: QuizScreen

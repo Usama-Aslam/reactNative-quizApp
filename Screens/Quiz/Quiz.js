@@ -1,11 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Button as ReactButton, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { AppRegistry, StyleSheet, View, Button as ReactButton, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 
 import { Container, Header, Content, ListItem, Text, Radio, Right, Left, Button } from 'native-base';
 
 import { NavigationActions, StackActions } from 'react-navigation'
-
-import RadioBtn from '../../Components/RadioBtn/RadioBtn'
 
 
 class Quiz extends React.Component {
@@ -24,9 +22,19 @@ class Quiz extends React.Component {
             correct: 0,
             checked: false,
             btnState: true,
-            score: 0
+            score: 0,
 
+            min: null,
+            sec: null,
         }
+        this.minute = 1;
+        this.second = 59;
+        this.timeStart = null;
+        this.timer = this.timer.bind(this);
+    }
+
+    componentDidMount() {
+        this.timer()
     }
 
     shuffle(array) {
@@ -80,6 +88,46 @@ class Quiz extends React.Component {
 
     }
 
+    timer() {
+
+        this.timeStart = setInterval(() => {
+            this.setState({
+                min: this.minute,
+                sec: this.second
+            })
+            --this.second;
+            if (this.second == 0) {
+                this.second = 60
+                --this.minute;
+                this.setState({
+                    sec: this.second,
+                    min: this.minute
+                })
+                if (this.minute < 0) {
+                    clearInterval(this.timeStart)
+                    var { score, correct } = this.state;
+                    const { quizQuest, showResult } = this.props
+
+                    this.setState({
+                        min: 0,
+                        sec: 0
+                    })
+
+                    console.log('value equal')
+                    console.log("correct", this.state.correct)
+
+                    score = Math.floor(correct * (100 / quizQuest.length))
+
+                    console.log(score)
+
+                    this.setState({
+                        score
+                    })
+                }
+            }
+        }, 300);
+    }
+
     handleNextButton = () => {
         const { question, categoryName } = this.props.navigation.state.params;
         let { answer, correct, load, checked, score } = this.state
@@ -129,10 +177,12 @@ class Quiz extends React.Component {
                 opt3: num[2],
                 opt4: num[3],
                 checked,
-                load
+                load,
+                btnState: true
             })
         }
     }
+
     render() {
         const { question } = this.props.navigation.state.params;
         let { Question, opt1, opt2, opt3, opt4 } = this.state;
@@ -199,7 +249,10 @@ class Quiz extends React.Component {
                             </Right>
                         </ListItem>
                         <Button
-                            disabled={this.state.btnState}>
+                            disabled={this.state.btnState}
+                            onPress={this.handleNextButton}
+                        >
+
                             <Text>Next</Text>
                         </Button>
                     </Content>

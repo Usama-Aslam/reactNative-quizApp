@@ -1,13 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
-
+import { AppRegistry, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Container, Content, Form, Item, Picker, Left, Right, Button } from 'native-base';
 import { NavigationActions, StackActions } from 'react-navigation'
+
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class QuizConfirm extends React.Component {
     constructor() {
         super()
         this.state = {
-            question: null
+            question: null,
+            categoryName: null,
+            min: 2,
+            sec: 60
         }
     }
 
@@ -44,23 +49,52 @@ class QuizConfirm extends React.Component {
     }
 
     render() {
-        const { question } = this.state
+        const { question, min, sec, categoryName } = this.state
 
         console.log("API_RESPONSE Question==>", question)
         console.log("QUiz prps", this.props.navigation.state.params.API_props)
 
         return (
-            <View>
-                <Text>Timer Detail: Click to Start the Quiz</Text>
-                <Button
-                    onPress={this.handleButtonPress}
-                    title="Start"
-                    color="#000000"
-                    accessibilityLabel="Click To Start The Quiz"
-                />
-            </View>
+            <Container>
+                <Content padder>
+                    <Text style={styles.heading}>Get Ready For The Quiz. Click Start To Continue</Text>
+                    <View style={styles.timeDetailDiv}>
+                        <Icon name="timer" size={40} />
+                        <Text style={styles.timeDetail}>{min} : {sec}</Text>
+                    </View>
+                    <Button block info
+                        style={styles.btn}
+                        onPress={this.handleButtonPress}
+                    >
+                        <Text style={styles.btnText}>Start</Text>
+                    </Button>
+                </Content>
+            </Container>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    heading: {
+        fontSize: 20
+    },
+    timeDetail: {
+        fontSize: 30,
+        paddingLeft: 20
+    },
+    timeDetailDiv: {
+        marginTop: 30,
+        flexDirection: 'row',
+    },
+    btnText: {
+        paddingTop: 20,
+        color: "white"
+    },
+    btn: {
+        marginTop: 40
+    }
+
+})
+AppRegistry.registerComponent('AwesomeProject', () => QuizConfirm);
 
 export default QuizConfirm
