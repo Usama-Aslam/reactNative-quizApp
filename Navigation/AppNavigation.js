@@ -4,10 +4,10 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import CameraFace from '../Components/CameraFace/CameraFace'
 import HomeScreen from '../Screens/HomeScreen/HomeScreen'
-import QuizInfoScreen from '../Screens/Quiz/QuizInfo'
+import QuizInfoScreen from '../Screens/Quiz/QuizInfo.1'
 import QuizConfirmScreen from '../Screens/Quiz/QuizConfirm'
 import QuizScreen from '../Screens/Quiz/Quiz'
-import QuizResultScreen from '../Screens/Quiz/QuizResultScreen'
+import QuizResultScreen from '../Screens/Quiz/QuizResult'
 
 const AppNavigator = createStackNavigator({
     Cam: {
@@ -38,7 +38,7 @@ const AppNavigator = createStackNavigator({
     }
 }, {
         headerMode: 'float',
-        headerLayoutPreset: 'center',
+        headerLayoutPreset: 'left',
         initialRouteName: 'Home'
     }
 )

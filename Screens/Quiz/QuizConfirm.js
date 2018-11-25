@@ -16,26 +16,28 @@ class QuizConfirm extends React.Component {
     }
 
     getData = async () => {
-        const { category, difficulty } = this.props.navigation.state.params.API_props
+        const { category, difficulty, categoryName } = this.props.navigation.state.params.API_props
 
         await fetch(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`)
             .then((response) => response.json())
             .then((res) => {
                 this.setState({
-                    question: res.results
+                    question: res.results,
+                    categoryName
                 })
             })
     }
 
     handleButtonPress = () => {
-        const { question } = this.state
+        const { question, categoryName } = this.state
         // console.log("handel", question)
 
         this.props.navigation.dispatch(
             StackActions.replace({
                 routeName: 'Quiz',
                 params: {
-                    question
+                    question,
+                    categoryName
                 }
             })
         )

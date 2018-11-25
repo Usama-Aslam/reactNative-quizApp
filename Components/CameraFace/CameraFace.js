@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity ,StyleSheet} from 'react-native';
 import { Camera, Permissions, FaceDetector } from 'expo';
 
 //navigation

@@ -25,7 +25,8 @@ class QuizInfo extends React.Component {
                 params: {
                     API_props: {
                         category,
-                        difficulty
+                        difficulty,
+                        categoryName: this.state.category[currentCategoryIndex]
                     }
                 }
             })

@@ -105,7 +105,10 @@ class Quiz extends React.Component {
                     actions: [
                         NavigationActions.navigate({ routeName: 'QuizInfo' }),
                         NavigationActions.navigate({ routeName: 'QuizResult' })
-                    ]
+                    ],
+                    params: {
+                        score
+                    }
                 })
             )
         }
